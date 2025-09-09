@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luthfi & Asyaffa | Kisah Cinta Kami</title>
+    <title>Luthfi & Asyaffa | Kisah Abadi Kami</title>
     <meta name="description" content="Website romantis untuk Luthfi dan Asyaffa. Merayakan cinta dan menanti hari bahagia.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +43,6 @@
             --font-heading: 'Dancing Script', 'Cormorant Garamond', 'Times New Roman', serif;
             --font-body: 'Poppins', 'Montserrat', 'Helvetica', 'Arial', sans-serif;
             --transition-speed: 0.5s;
-            --heart-animation-duration: 25s;
         }
 
         /* Aturan dasar untuk mode gelap */
@@ -208,6 +207,41 @@
             width: 45px;
             height: 45px;
         }
+
+        /* Countdown layout (Tanpa kotak putih) */
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        @media (min-width: 768px) {
+            .countdown-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+        .countdown-box {
+            /* Menghapus background dan shadow */
+            padding: 0;
+            box-shadow: none;
+            transition: none;
+            background-color: transparent;
+        }
+        .countdown-value {
+            font-size: 2.5rem;
+            font-family: var(--font-heading);
+            color: var(--heading-color);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+        .anniversary-label { font-size: 1.1rem; opacity: 0.9; }
         
         /*
         ================================================================================
@@ -246,7 +280,7 @@
             background-color: var(--heart-color);
             transform: translateX(-50%) rotate(45deg);
             opacity: 0;
-            animation: float-up var(--heart-animation-duration) infinite linear;
+            animation: float-up 25s infinite linear;
             z-index: 1;
         }
         .floating-heart::before, .floating-heart::after {
@@ -318,8 +352,10 @@
         }
 
         @media (max-width: 768px) {
-            .countdown-grid { gap: 1rem; }
-            .countdown-box { flex: 1 1 45%; }
+            .countdown-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
             .countdown-value { font-size: 2rem; }
         }
 
@@ -350,11 +386,19 @@
                 <h2>Cinta Abadi</h2>
                 <div class="text-center">
                     <p class="anniversary-label">Telah bersama selama:</p>
-                    <p style="font-size: 2rem; font-weight: bold;" id="anniversary-duration">0 Tahun, 0 Bulan, 0 Hari</p>
+                    <p style="font-size: 2rem; font-weight: bold;" id="anniversary-duration">0 Tahun, 0 Bulan</p>
                 </div>
 
-                <h3 style="margin-top: 2rem;">Menuju Hari Bahagia</h3>
+                <h3 style="margin-top: 2rem;">Menuju Hari Bahagia (InsyaAllah)</h3>
                 <div class="countdown-grid" id="countdown-grid">
+                    <div class="countdown-box">
+                        <div class="countdown-value" id="countdown-years">0</div>
+                        <div class="countdown-label">Tahun</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div class="countdown-value" id="countdown-months">0</div>
+                        <div class="countdown-label">Bulan</div>
+                    </div>
                     <div class="countdown-box">
                         <div class="countdown-value" id="countdown-days">00</div>
                         <div class="countdown-label">Hari</div>
@@ -372,17 +416,18 @@
                         <div class="countdown-label">Detik</div>
                     </div>
                 </div>
+                <p style="font-size: 0.8rem; text-align: center; margin-top: 1rem; opacity: 0.7;">Waktu: Zona waktu perangkat pengunjung</p>
             </div>
         </section>
 
         <section class="container" id="love-story">
             <div class="info-card">
-                <h2>Kisah Kami</h2>
+                <h2>Cerita Kami</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
+                    Kisah Luthfi & Asyaffa dimulai pada 17 April 2025, sebuah tanggal yang menjadi saksi bisu perjalanan cinta kami. Dari pertemuan tak terduga, kami menemukan bahwa impian terbesar kami adalah menua bersama. Lima tahun ke depan, tepatnya 30 Maret 2030, kami memohon doa restu untuk memulai babak baru dalam hidup kami.
                 </p>
                 <p>
-                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque a magna a lorem. In euismod libero.
+                    Kami bermimpi membangun keluarga yang penuh cinta, saling mendukung, dan selalu bersyukur atas setiap langkah yang kami ambil. Kami percaya, cinta sejati adalah janji yang ditepati setiap hari.
                 </p>
             </div>
         </section>
@@ -391,7 +436,7 @@
             <div class="info-card">
                 <h2>Janji Cinta</h2>
                 <p style="font-style: italic; font-size: 1.2rem; text-align: center;">
-                    "Cinta adalah ketika dua jiwa bertemu dan merasa seperti rumah."
+                    "Cinta bukan tentang berapa lama kita menunggu, tapi seberapa indah kita merawatnya."
                 </p>
                 <p style="text-align: center; font-weight: bold; margin-top: 1rem; opacity: 0.8;">— Anonim</p>
             </div>
@@ -399,15 +444,16 @@
 
         <section class="container" id="doa-form">
             <div class="form-container">
-                <h2>Kirim Pesan & Doa</h2>
+                <h2>Ucapan & Doa</h2>
                 <p style="font-size: 0.9rem; margin-bottom: 1.5rem;">Sampaikan doa dan harapan terbaik Anda untuk kami.</p>
                 <form id="waForm">
                     <label for="senderName" class="sr-only">Nama Pengirim</label>
                     <input type="text" id="senderName" placeholder="Nama Pengirim" aria-label="Nama Pengirim" required maxlength="50">
                     <label for="messageContent" class="sr-only">Pesan / Doa</label>
-                    <textarea id="messageContent" rows="5" placeholder="Pesan / Doa" aria-label="Pesan atau Doa" required maxlength="500"></textarea>
-                    <button type="submit" class="btn btn-primary" aria-label="Kirim Pesan dan Doa">Kirim Pesan</button>
+                    <textarea id="messageContent" rows="5" placeholder="Isi Pesan / Doa" aria-label="Pesan atau Doa" required maxlength="500"></textarea>
+                    <button type="submit" class="btn btn-primary" aria-label="Kirim Pesan dan Doa">Kirim ke WhatsApp</button>
                 </form>
+                <p style="font-size: 0.8rem; text-align: center; margin-top: 1rem; opacity: 0.7;">Pesan akan dibuka di WhatsApp Anda untuk dikirim.</p>
             </div>
         </section>
     </main>
@@ -438,8 +484,10 @@
             // ================================================================================
             
             // --- VARIABEL & KONSTANTA PENTING ---
-            const startDate = new Date('2025-04-17');
+            // EDIT DATES & NAMES:
+            const startDate = new Date('2025-04-17T00:00:00');
             const weddingDate = new Date('2030-03-30T00:00:00');
+            // EDIT WHATSAPP NUMBER:
             const waNumber = '628816527987'; 
             const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             let isSoundMuted = localStorage.getItem('soundMuted') === 'true';
@@ -449,6 +497,8 @@
             const themeToggleBtn = document.getElementById('themeToggle');
             const sunIcon = document.getElementById('sun-icon');
             const moonIcon = document.getElementById('moon-icon');
+            const countdownYears = document.getElementById('countdown-years');
+            const countdownMonths = document.getElementById('countdown-months');
             const countdownDays = document.getElementById('countdown-days');
             const countdownHours = document.getElementById('countdown-hours');
             const countdownMinutes = document.getElementById('countdown-minutes');
@@ -504,41 +554,35 @@
             function updateTimers() {
                 const now = new Date();
                 const diff = weddingDate - now;
-                const duration = now - startDate;
 
-                // Countdown
                 if (diff < 0) {
                     document.getElementById('countdown-grid').innerHTML = '<p style="font-size:1.2rem; text-align:center;">Alhamdulillah, kami telah bersatu.</p>';
                     document.querySelector('#info-section h3').textContent = 'Masa Depan Abadi';
-                } else {
-                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                    countdownDays.textContent = String(days).padStart(2, '0');
-                    countdownHours.textContent = String(hours).padStart(2, '0');
-                    countdownMinutes.textContent = String(minutes).padStart(2, '0');
-                    countdownSeconds.textContent = String(seconds).padStart(2, '0');
+                    return;
                 }
+                
+                // Countdown to wedding date
+                const seconds = Math.floor((diff / 1000) % 60);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const years = Math.floor(days / 365.25);
+                const remainingDays = Math.floor(days % 365.25);
+                const months = Math.floor(remainingDays / 30.44); // Average days in a month
+                
+                countdownYears.textContent = years;
+                countdownMonths.textContent = months;
+                countdownDays.textContent = String(remainingDays % 30.44).split('.')[0];
+                countdownHours.textContent = String(hours).padStart(2, '0');
+                countdownMinutes.textContent = String(minutes).padStart(2, '0');
+                countdownSeconds.textContent = String(seconds).padStart(2, '0');
                 
                 // Anniversary duration
                 const totalMonths = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
                 const yearsPassed = Math.floor(totalMonths / 12);
                 const remainingMonths = totalMonths % 12;
-                const totalDays = Math.floor(duration / (1000 * 60 * 60 * 24));
+                anniversaryDuration.textContent = `${yearsPassed} Tahun, ${remainingMonths} Bulan`;
 
-                let durationText = '';
-                if (totalDays < 30) {
-                    durationText = `${totalDays} Hari`;
-                } else if (yearsPassed === 0) {
-                    durationText = `${totalMonths} Bulan`;
-                } else {
-                    durationText = `${yearsPassed} Tahun`;
-                    if (remainingMonths > 0) {
-                        durationText += `, ${remainingMonths} Bulan`;
-                    }
-                }
-                anniversaryDuration.textContent = durationText;
             }
             updateTimers();
             setInterval(updateTimers, 1000);
@@ -563,9 +607,9 @@
                     alert('Pesan / Doa tidak boleh lebih dari 500 karakter.');
                     return;
                 }
-                const confirmation = confirm(`Anda akan mengirim pesan ini ke WhatsApp:\n\nNama: ${senderName}\nPesan: ${messageContent}\n\nLanjutkan?`);
+                const confirmation = confirm(`Anda akan mengirim pesan ini ke WhatsApp:\n\nNama: ${senderName}\nPesan/Doa: ${messageContent}\n\nLanjutkan?`);
                 if (confirmation) {
-                    const encodedMessage = encodeURIComponent(`*Pesan dari Website*\n\nDari: ${senderName}\n\nIsi Pesan:\n${messageContent}`);
+                    const encodedMessage = encodeURIComponent(`Nama: ${senderName}\nPesan/Doa: ${messageContent}\nUntuk: Luthfi & Asyaffa`);
                     const waLink = `https://wa.me/${waNumber}?text=${encodedMessage}`;
                     window.open(waLink, '_blank');
                 }
@@ -605,18 +649,6 @@
                         if (hasInteracted) playSFX('click');
                     }
                 });
-            });
-
-            const sectionObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        playSFX('chime');
-                    }
-                });
-            }, { root: null, rootMargin: '0px', threshold: 0.1 });
-
-            document.querySelectorAll('section').forEach(section => {
-                sectionObserver.observe(section);
             });
 
             // Initial interaction to enable audio playback
