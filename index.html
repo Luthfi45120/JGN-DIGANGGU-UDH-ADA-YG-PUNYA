@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luthfi & Asyaffa | Kisah Cinta Kami</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /*
+        ==========================================================================
+        BAGIAN 1: PENGATURAN DASAR & VARIABEL CSS
+        - Kustomisasi warna, font, dan spasi dapat dilakukan di sini.
+        - Logika tema terang/gelap dikendalikan melalui variabel ini.
+        ==========================================================================
+        */
+        :root {
+            /* TEMA TERANG (LIGHT MODE) */
+            --bg-color: #fff8f5;
+            --text-color: #5c524f;
+            --heading-color: #d16071;
+            --accent-color: #e895a2;
+            --card-bg-color: rgba(255, 255, 255, 0.7);
+            --shadow-color: rgba(209, 96, 113, 0.1);
+            --highlight-color: #ffeced;
+            --focus-ring-color: #d16071;
+
+            /* TIPOGRAFI & SPASI */
+            --font-display: 'Dancing Script', cursive;
+            --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 32px;
+            --spacing-xl: 64px;
+            --border-radius: 16px;
+        }
+
+        [data-theme='dark'] {
+            /* TEMA GELAP (DARK MODE) */
+            --bg-color: #2c2833;
+            --text-color: #d1c9d6;
+            --heading-color: #f5a9b8;
+            --accent-color: #e895a2;
+            --card-bg-color: rgba(60, 55, 70, 0.7);
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --highlight-color: #3a3444;
+            --focus-ring-color: #f5a9b8;
+        }
+
+        /* PENGATURAN GLOBAL */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 100%; /* 16px */
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Tata Letak & Spasi Aman */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: var(--spacing-xl) var(--spacing-lg);
+        }
+        
+        /*
+        ==========================================================================
+        BAGIAN 2: KOMPONEN UI & TATA LETAK
+        ==========================================================================
+        */
+        /* Kartu Konten dengan efek blur */
+        .content-card {
+            background-color: var(--card-bg-color);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 40px var(--shadow-color);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.5s ease, transform 0.3s ease;
+        }
+
+        /* Tipografi */
+        h1, h2 {
+            font-family: var(--font-display);
+            color: var(--heading-color);
+            font-weight: 700;
+            line-height: 1.2;
+            text-align: center;
+        }
+        h1 { font-size: clamp(3rem, 10vw, 5rem); }
+        h2 { font-size: clamp(2.5rem, 8vw, 3.5rem); margin-bottom: var(--spacing-md); }
+        p { text-align: center; max-width: 65ch; margin: 0 auto var(--spacing-md); }
+
+        /* Pengatur Waktu Mundur */
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-md);
+            text-align: center;
+            margin-top: var(--spacing-lg);
+        }
+        .timer-box { background-color: var(--highlight-color); padding: var(--spacing-md); border-radius: var(--border-radius); }
+        .timer-number { font-size: clamp(1.5rem, 5vw, 2.5rem); font-weight: 600; color: var(--heading-color); }
+        .timer-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-color); }
+
+        /* Formulir Pesan */
+        .wishes-form { margin-top: var(--spacing-lg); text-align: left; }
+        .form-group { margin-bottom: var(--spacing-md); }
+        .form-group label { display: block; margin-bottom: var(--spacing-sm); font-weight: 600; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            border-radius: var(--spacing-sm);
+            border: 1px solid var(--accent-color);
+            background-color: var(--highlight-color);
+            color: var(--text-color);
+            font-family: var(--font-body);
+        }
+        .submit-btn {
+            display: block; width: 100%; padding: var(--spacing-md); background-color: var(--heading-color);
+            color: white; border: none; border-radius: var(--spacing-sm); font-weight: 600; cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .submit-btn:hover { background-color: var(--accent-color); }
+
+        /* Daftar Pesan */
+        #wishes-list { margin-top: var(--spacing-lg); }
+        .wish-item { background-color: var(--highlight-color); padding: var(--spacing-md); border-radius: var(--border-radius); margin-bottom: var(--spacing-md); }
+        .wish-item p { text-align: left; margin-bottom: var(--spacing-sm); }
+        .wish-item strong { color: var(--heading-color); }
+
+        /* Footer & Kontrol */
+        .site-footer {
+            padding: var(--spacing-lg);
+            background-color: var(--card-bg-color);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            text-align: center;
+        }
+        .controls-grid { display: flex; justify-content: center; align-items: center; gap: var(--spacing-lg); margin-bottom: var(--spacing-md); flex-wrap: wrap; }
+        .control-btn {
+            background: none; border: 1px solid var(--accent-color); width: 44px; height: 44px;
+            border-radius: 50%; cursor: pointer; display: flex; justify-content: center;
+            align-items: center; font-size: 1.25rem; color: var(--accent-color);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .control-btn:hover { background-color: var(--highlight-color); transform: scale(1.1); }
+        .control-btn:focus-visible { outline: 2px solid var(--focus-ring-color); outline-offset: 2px; }
+
+        /*
+        ==========================================================================
+        BAGIAN 3: EFEK INTERAKTIF & ANIMASI
+        ==========================================================================
+        */
+
+        /* Latar Belakang & Partikel */
+        .particles-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; overflow: hidden;
+        }
+        .particle {
+            position: absolute; border-radius: 50%; background-color: var(--accent-color);
+            opacity: 0;
+        }
+
+        /* Efek Kursor */
+        .cursor-glow {
+            position: fixed; top: 0; left: 0; width: 30px; height: 30px;
+            border-radius: 50%; background: var(--accent-color); opacity: 0.2;
+            pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+        }
+        
+        /* Efek Klik */
+        .click-burst {
+            position: fixed; pointer-events: none; z-index: 10000;
+        }
+        .click-particle {
+            position: absolute; width: 5px; height: 5px;
+            background: var(--heading-color); border-radius: 50%;
+        }
+
+        /* Overlay Awal untuk Audio */
+        .audio-prompt-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 10001;
+            display: flex; justify-content: center; align-items: center;
+            text-align: center; color: white; backdrop-filter: blur(10px);
+            opacity: 1; transition: opacity 0.5s ease;
+        }
+        .audio-prompt-overlay.hidden { opacity: 0; pointer-events: none; }
+        .audio-prompt-btn {
+            background: var(--heading-color); color: white; border: none;
+            padding: var(--spacing-md) var(--spacing-lg); border-radius: 50px;
+            font-size: 1.2rem; font-weight: 600; cursor: pointer;
+        }
+
+        /* Penanganan Reduced Motion */
+        @media (prefers-reduced-motion: no-preference) {
+            .animated-section {
+                opacity: 0; transform: translateY(30px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+            .animated-section.is-visible { opacity: 1; transform: translateY(0); }
+            
+            .particle { animation: float 25s infinite linear; }
+            @keyframes float {
+                0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+                100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-glow" id="cursor-glow"></div>
+    <div class="particles-bg" id="particles-bg"></div>
+    
+    <audio id="background-music" loop muted>
+        <source src="https://cdn.pixabay.com/audio/2022/11/22/audio_2c5d1853a8.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+    
+    <div class="audio-prompt-overlay" id="audio-prompt">
+        <div>
+            <h2>Selamat Datang</h2>
+            <p>Situs ini menggunakan musik latar untuk pengalaman yang lebih mendalam.</p>
+            <button id="play-audio-btn" class="audio-prompt-btn">Putar Musik & Masuk</button>
+        </div>
+    </div>
+
+    <main>
+        <header class="container" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; text-align: center;">
+            <div class="animated-section">
+                <h1>Luthfi ♥ Asyaffa</h1>
+                <p style="font-size: 1.2rem; color: var(--accent-color);">Kisah abadi kami dimulai pada <strong>17 April 2025</strong></p>
+            </div>
+        </header>
+
+        <section class="container animated-section" id="cerita-kami">
+            <div class="content-card">
+                <h2>Cerita Kami</h2>
+                <p style="text-align: justify;">Pada hari yang terasa biasa, <strong>17 April 2025</strong>, takdir menulis babak baru dalam hidup kami. Pertemuan yang tak terduga menjadi awal dari sebuah perjalanan penuh makna. Melalui setiap tawa, tantangan, dan doa, kami belajar bahwa cinta adalah seni memahami tanpa harus menjelaskan, dan memberi tanpa mengharap balasan. InsyaAllah, perjalanan ini akan kami sempurnakan dalam ikatan suci pada <strong>30 Maret 2030</strong>, membangun istana cinta di bawah naungan ridho-Nya.</p>
+            </div>
+        </section>
+
+        <section class="container animated-section" id="countdown">
+             <div class="content-card">
+                <h2>Menuju Hari Istimewa</h2>
+                <p>Dengan restu-Nya, kami menghitung setiap detik menuju hari di mana dua jiwa menjadi satu.</p>
+                <div class="countdown-grid">
+                    <div class="timer-box"><div id="days" class="timer-number">00</div><div class="timer-label">Hari</div></div>
+                    <div class="timer-box"><div id="hours" class="timer-number">00</div><div class="timer-label">Jam</div></div>
+                    <div class="timer-box"><div id="minutes" class="timer-number">00</div><div class="timer-label">Menit</div></div>
+                    <div class="timer-box"><div id="seconds" class="timer-number">00</div><div class="timer-label">Detik</div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container animated-section" id="quotes">
+            <div class="content-card">
+                <h2>Untaian Kata</h2>
+                <blockquote style="font-style: italic; font-size: 1.1rem; border-left: 3px solid var(--accent-color); padding-left: var(--spacing-md); margin: 0;">
+                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan-pasangan dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang."
+                    <cite style="display: block; margin-top: var(--spacing-sm); font-style: normal; font-weight: 600;">— QS. Ar-Rum: 21</cite>
+                </blockquote>
+            </div>
+        </section>
+        
+        <section class="container animated-section" id="wishes">
+            <div class="content-card">
+                <h2>Titip Doa & Ucapan</h2>
+                <p>Kehadiran doa dan ucapan tulus dari Anda akan menjadi hadiah terindah bagi kami.</p>
+                <form class="wishes-form" id="wishes-form">
+                    <div class="form-group">
+                        <label for="wisher-name">Nama Anda</label>
+                        <input type="text" id="wisher-name" required placeholder="Tulis nama Anda di sini...">
+                    </div>
+                    <div class="form-group">
+                        <label for="wish-message">Pesan & Doa</label>
+                        <textarea id="wish-message" rows="4" required placeholder="Tuliskan pesan dan doa terbaik Anda..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Kirim Ucapan</button>
+                </form>
+                <div id="wishes-list">
+                    </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="controls-grid">
+            <button class="control-btn" id="theme-toggle" aria-label="Ganti Tema">☀️</button>
+            <button class="control-btn" id="music-toggle" aria-label="Putar/Jeda Musik">▶️</button>
+            <button class="control-btn" id="sfx-toggle" aria-label="Aktifkan/Nonaktifkan Efek Suara">🔊</button>
+        </div>
+        <p>Dibuat dengan cinta untuk Luthfi & Asyaffa.</p>
+    </footer>
+    
+    <script>
+    // Pastikan semua skrip berjalan setelah halaman dimuat sepenuhnya
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // ======================================================================
+        // BAGIAN 1: INISIALISASI & PENGATURAN GLOBAL
+        // ======================================================================
+        const docElement = document.documentElement;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Mendeteksi ketersediaan API Web Audio untuk efek suara
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = AudioContext ? new AudioContext() : null;
+        let sfxEnabled = true;
+
+        // ======================================================================
+        // BAGIAN 2: MANAJEMEN TEMA (TERANG/GELAP)
+        // ======================================================================
+        // Mengatur tema berdasarkan preferensi atau waktu lokal
+        const themeToggle = document.getElementById('theme-toggle');
+        const applyTheme = (theme) => {
+            docElement.setAttribute('data-theme', theme);
+            themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('preferred-theme', theme);
+        };
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = docElement.getAttribute('data-theme');
+            applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        const initializeTheme = () => {
+            const savedTheme = localStorage.getItem('preferred-theme');
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else {
+                const currentHour = new Date().getHours();
+                const isNight = currentHour >= 18 || currentHour < 6;
+                applyTheme(isNight ? 'dark' : 'light');
+            }
+        };
+
+        initializeTheme();
+
+        // ======================================================================
+        // BAGIAN 3: PENGHITUNG WAKTU MUNDUR
+        // ======================================================================
+        const countdownDate = new Date('2030-03-30T00:00:00').getTime();
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        
+        const formatTime = (time) => String(time).padStart(2, '0');
+
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            if (distance > 0) {
+                daysEl.textContent = formatTime(Math.floor(distance / (1000 * 60 * 60 * 24)));
+                hoursEl.textContent = formatTime(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+                minutesEl.textContent = formatTime(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+                secondsEl.textContent = formatTime(Math.floor((distance % (1000 * 60)) / 1000));
+            } else {
+                document.getElementById('countdown').innerHTML = `<div class="content-card"><h2>Alhamdulillah, Waktu Telah Tiba!</h2></div>`;
+                clearInterval(countdownInterval);
+            }
+        };
+        
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+
+        // ======================================================================
+        // BAGIAN 4: MANAJEMEN AUDIO (MUSIK & SFX)
+        // ======================================================================
+        const bgMusic = document.getElementById('background-music');
+        const musicToggle = document.getElementById('music-toggle');
+        const sfxToggle = document.getElementById('sfx-toggle');
+        const audioPrompt = document.getElementById('audio-prompt');
+        const playAudioBtn = document.getElementById('play-audio-btn');
+
+        // Fungsi untuk memulai audio setelah interaksi pengguna
+        playAudioBtn.addEventListener('click', () => {
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            bgMusic.play().then(() => {
+                bgMusic.muted = false;
+                musicToggle.textContent = '⏸️';
+            }).catch(e => console.error("Autoplay gagal:", e));
+            audioPrompt.classList.add('hidden');
+            playClickSound();
+        });
+
+        // Tombol kontrol musik utama
+        musicToggle.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicToggle.textContent = '⏸️';
+            } else {
+                bgMusic.pause();
+                musicToggle.textContent = '▶️';
+            }
+            playClickSound();
+        });
+
+        // Tombol kontrol efek suara
+        sfxToggle.addEventListener('click', () => {
+            sfxEnabled = !sfxEnabled;
+            sfxToggle.textContent = sfxEnabled ? '🔊' : '🔇';
+            playClickSound(); // Memainkan suara klik terakhir sebelum dimatikan
+        });
+        
+        // Fungsi untuk memainkan suara klik (jika Web Audio API tersedia)
+        function playClickSound() {
+            if (!sfxEnabled || !audioCtx) return;
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(220, audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            
+            oscillator.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.1);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.1);
+        }
+
+        // ======================================================================
+        // BAGIAN 5: EFEK VISUAL INTERAKTIF
+        // ======================================================================
+        if (!prefersReducedMotion) {
+            // Animasi section saat di-scroll
+            const animatedSections = document.querySelectorAll('.animated-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            animatedSections.forEach(section => observer.observe(section));
+
+            // Efek kursor mengikuti
+            const cursorGlow = document.getElementById('cursor-glow');
+            window.addEventListener('mousemove', e => {
+                cursorGlow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            });
+
+            // Partikel latar belakang
+            const particlesBg = document.getElementById('particles-bg');
+            for (let i = 0; i < 20; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 5 + 2;
+                p.style.cssText = `width:${size}px; height:${size}px; left:${Math.random()*100}%; top:${Math.random()*100}%; animation-delay:${Math.random()*25}s; animation-duration:${Math.random()*15+10}s;`;
+                particlesBg.appendChild(p);
+            }
+            
+            // Efek ledakan partikel saat klik
+            document.addEventListener('click', e => {
+                playClickSound(); // Mainkan SFX di setiap klik
+                let burst = document.createElement('div');
+                burst.className = 'click-burst';
+                burst.style.left = `${e.clientX}px`;
+                burst.style.top = `${e.clientY}px`;
+                document.body.appendChild(burst);
+
+                for(let i=0; i<8; i++){
+                    let p = document.createElement('div');
+                    p.className = 'click-particle';
+                    const angle = Math.random() * 360;
+                    const dist = Math.random() * 30 + 20;
+                    p.style.transition = `transform 0.5s ease-out, opacity 0.5s ease-out`;
+                    p.style.transform = `rotate(${angle}deg) translateX(0px)`;
+                    burst.appendChild(p);
+
+                    setTimeout(() => {
+                        p.style.transform = `rotate(${angle}deg) translateX(${dist}px)`;
+                        p.style.opacity = '0';
+                    }, 10);
+                }
+                setTimeout(() => burst.remove(), 500);
+            });
+        }
+
+        // ======================================================================
+        // BAGIAN 6: FORMULIR UCAPAN
+        // ======================================================================
+        const wishesForm = document.getElementById('wishes-form');
+        const wishesList = document.getElementById('wishes-list');
+
+        wishesForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('wisher-name').value;
+            const message = document.getElementById('wish-message').value;
+
+            const wishElement = document.createElement('div');
+            wishElement.className = 'wish-item';
+            wishElement.innerHTML = `<p><strong>${name}</strong> berkata:</p><p><em>"${message}"</em></p>`;
+            
+            wishesList.prepend(wishElement); // Tampilkan ucapan baru di paling atas
+            wishesForm.reset();
+        });
+    });
+    </script>
+</body>
+</html>
